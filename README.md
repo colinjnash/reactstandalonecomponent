@@ -86,3 +86,18 @@ Here are the possible vehicle models:
 
 `1-SERIES, 6 SERIES, 640IX N55, ALL 4 COUTRYMAN ZC53, CAMION X1, SANTA FE SPORT,
 530XI N52, 328DX N47T, 3 SERIES`
+
+
+Base Build:
+
+Currently running webpack with Stage1, ES2015, and React with Babel-Loader as the transpiler.
+
+ESLINT rules are set to customized rules, although a switch to the AirBnb linter could be possible.
+
+.gitignore needs to be tested to ensure all bloat is left out.
+
+The goal will be to populate the initial data in state, then pass it on to dropdown menus with a callback saving the requested filters. There will then be a final check before populating the Filter List as seen in the design parameter.
+
+Currently stuck on a bug that will not re-render the list and select default option for the form. It is definitely a problem with the rendering and/or key values, and the setup of state.
+
+Clean up of handle functions also need to be addressed, as they can possibly be refactored into one event handler.
