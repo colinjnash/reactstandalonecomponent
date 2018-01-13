@@ -64,21 +64,31 @@ filterType = (value) => {
 //Need a reset condition for handleValue change
 handleValue = (event) => {
 	let value = this.refs.attribute.value
-this.setState({value: value, condition: '', selectedDataType: ''});
-this.filterType(value);
+this.setState({value: value,
+ condition: 'Select Condition', 
+ selectedDataType: '',
+ inputValue: ''}, () => this.filterType(value));
+;
 
 //Reset condition not reflecting in Operators select
 }
 
-handleCondition = (event) => {
+//TO DO: This must be reduced. This will need more work as handleCondition will bloat.
+handleCondition = (event) => {		
 	let name = event.target.name
 	console.log(event.target.name);
 	let condition = event.target.value
-	this.setState({condition});
-	if ((this.state.condition == 'more than' || 'exactly' || 'less than') 
-		&& (this.state.value == 'Agreement')) {
-		this.setState({selectedUnits: 'days'})
-	}
+			this.setState({condition}, () => {
+				if (this.state.value == 'Agreement') {
+			if (this.state.condition == 'more than' || this.state.condition  ==  'less than' || this.state.condition == 'exactly') {
+				this.setState({selectedUnits: 'days'});
+			} else {
+				console.log("Reset State");
+				this.setState({selectedUnits: ''});
+			} 
+		}
+	});
+	
 }
 
 handleInputValue = (event) => {
@@ -112,6 +122,7 @@ this.setState({inputValue: value});
 				<Operators 
 					value={this.state.value}
 					dataType={this.state.selectedDataType}
+					condition={this.state.condition}
 					selectedUnits ={this.state.selectedUnits}
 					handleCondition={this.handleCondition}
 				/>

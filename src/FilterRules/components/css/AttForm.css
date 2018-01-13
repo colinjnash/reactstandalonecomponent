@@ -1,0 +1,17 @@
+.form = {
+width: 35%;
+padding: 10px;
+margin: 10px;
+display: inline-block;
+outline: none;
+};
+
+.dropdown {
+
+width: 35%;
+padding: 10px;
+margin: 10px;
+display: inline-block;
+outline: none;
+
+}
