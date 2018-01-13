@@ -1,5 +1,13 @@
 import React from 'react';
 import { StringType, DateType, NumberType, BooleanType } from './OperatorTypes';
+import styled, { css } from 'styled-components';
+
+const Span = styled.span`
+	margin: 0px 15px;
+	display: inline-block;
+	outline: none;
+`;
+
 const Operators = (props) => {
 	let value = props.value;
 
@@ -8,43 +16,43 @@ const Operators = (props) => {
 		return null;
 	case 'Rental Left':
 		return (
-			<span>
-				<select className="Operator" name="condition" value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
+			<Span>
+				<select name="condition" value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
 					{NumberType.map((item,i) => <option key={i} value={item.filter}>{item.filter}</option>)}
 				</select>
-			</span>
+			</Span>
 		);
 	case 'Turn Back Milage':
 		return (
-			<span>
-				<select className="Operator" name="condition" value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
+			<Span>
+				<select name="condition" value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
 					{NumberType.map((item,i) => <option key={i} value={item.filter}>{item.filter}</option>)}
 				</select>
-			</span>
+			</Span>
 		);
 	case 'Agreement':
 		return (
-			<span>
-				<select className="Operator"name="condition"  value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
+			<Span>
+				<select ame="condition"  value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
 					{DateType.map((item,i) => <option key={i} value={item.filter}>{item.filter}</option>)}
 				</select>
-			</span>
+			</Span>
 		);
 	case 'Model':
 		return (
-			<span>
-				<select className="Operator"name="condition"  value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
+			<Span>
+				<select ame="condition"  value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
 					{StringType.map((item,i) => <option key={i} value={item.filter}>{item.filter}</option>)}
 				</select>
-			</span>
+			</Span>
 		);
 	case 'Vehicle Maintenance Needed':
 		return (
-			<span>
-				<select className="Operator"name="condition"  value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
+			<Span>
+				<select ame="condition"  value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
 					{BooleanType.map((item,i) => <option key={i} value={item.filter}>{item.filter}</option>)}
 				</select>
-			</span>
+			</Span>
 		);
 	default:
 		return null;

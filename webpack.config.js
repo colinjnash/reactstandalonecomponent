@@ -12,12 +12,12 @@ module.exports = {
 					plugins: [],
 					presets: ['react', 'es2015', 'stage-1']
 				}
-			}
-		]
+			},
+		],
 	},
 	output: {
-		path: path.resolve(__dirname, "build"),
-		publicPath: "/assets/",
+		path: path.resolve(__dirname,' build'),
+		publicPath:'assets/',
 		filename: 'bundle.js',
 	}
 };
