@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Operators from './Operators';
 import InputTypes from './InputTypes';
 import FilterString from './FilterString';
+
 import styled, { css } from 'styled-components';
+import { attributeList } from './Attributes'
 
 const Form = styled.form`
 padding: 5px;
@@ -15,43 +17,17 @@ class FilterForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			//Can eventually make a helper function to iterate so any changes will be updated
-			attributes: [
-				{ filter: 'Rental Left',
-					dataType: 'number',
-					units: 'days',
-				},
-				{
-					filter: 'Turn Back Milage',
-					dataType: 'number',
-					units: 'kilometers',
-				},
-				{
-					filter: 'Agreement',
-					dataType: 'date',
-					units: ''
-				},
-				{
-					filter: 'Model',
-					dataType: 'string',
-					units: ''
-				},
-				{
-					filter: 'Vehicle Maintenance Needed',
-					dataType: 'boolean',
-					units:''
-				}
-			],
 			value: 'Select Attribute',
 			selectedDataType: '',
 			selectedUnits: '',
 			condition: '',
-			inputValue: ''
+			inputValue: '',
+			filter: []
 		};
 	}
 
 filterType = (value) => {
-	const filteredData = this.state.attributes.filter((obj) => {
+	const filteredData = attributeList.filter((obj) => {
 	if (obj.filter == value) {
 		this.setState({
 	selectedDataType: obj.dataType,
@@ -65,18 +41,14 @@ filterType = (value) => {
 handleValue = (event) => {
 	let value = this.refs.attribute.value
 this.setState({value: value,
- condition: 'Select Condition', 
+ condition: '', 
  selectedDataType: '',
  inputValue: ''}, () => this.filterType(value));
-;
-
-//Reset condition not reflecting in Operators select
 }
 
 //TO DO: This must be reduced. This will need more work as handleCondition will bloat.
 handleCondition = (event) => {		
 	let name = event.target.name
-	console.log(event.target.name);
 	let condition = event.target.value
 			this.setState({condition}, () => {
 				if (this.state.value == 'Agreement') {
@@ -116,7 +88,7 @@ this.setState({inputValue: value});
 				<Form>
 					<select ref='attribute' value={this.state.value} onChange={this.handleValue}>	
 						<option value="Select Attribute" disabled>Select Attribute</option>
-						{(this.state.attributes).map((att,i) => <option key={i} 
+						{attributeList.map((att,i) => <option key={i} 
 							value={att.filter}>{att.filter}</option>)}
 					</select>
 				<Operators 
@@ -128,12 +100,13 @@ this.setState({inputValue: value});
 				/>
 				<InputTypes
 				value={this.state.value}
-				condition={this.state.condition}
 				dataType={this.state.selectedDataType}
 				inputValue={this.state.inputValue}
+				condition={this.state.condition}
 				handleInputValue={this.handleInputValue}
 				selectedUnits ={this.state.selectedUnits}
 				/>
+				<button>Submit</button>
 				</Form>
 			</span>
 			</div>

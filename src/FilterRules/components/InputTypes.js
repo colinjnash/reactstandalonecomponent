@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-
+import { Models } from './Models.js';
 
 const Span = styled.span`
 	margin: 0px 15px;
@@ -10,24 +10,52 @@ const Span = styled.span`
 
 const InputTypes = (props) => {
 	let value 		= props.value;
-	let condition = props.condition;
 	let data 			= props.dataType;
 	let units 		= props.selectedUnits;
+	let condition	=	props.condition;
+	let kmArr 		= [];
+	let dayArr		= [];
 
-	function isKilometers(units) {
-		if(units == 'kilometers') {
-			return 5000;
-		} else {
-			return 1;
-		}
+	const kmDataList = (num,km) => {
+		if (km < num) {
+			kmArr.push(km);
+			kmDataList(num, km+=5000);
+		} 
+		return kmArr;
+	};
+
+	const dayDataList =(num,day) => {
+		if (day < num) {
+			dayArr.push(day);
+			dayDataList(num, day+=1);
+		} 
+		return dayArr;
+	};
+
+	if (condition =='' || condition == 'is unknown' || condition == 'has any value') {
+		return null;
 	}
-	switch(data) {
 
+	switch(data) {
 	case 'string':
-		return (
-			<Span><input type='text' value={props.inputValue} onChange={props.handleInputValue}/>
-			</Span>
-		);
+		if (value == 'Model') {
+			return (
+				<Span>
+					<input type='text' value={props.inputValue} onChange={props.handleInputValue} list='Models'/>	
+					<datalist id='Models'>
+						<select>
+							{Models.map((model,i) => <option key={i} 
+								value={model}>{model}</option>)}
+						</select>
+					</datalist>
+				</Span>
+			);
+		} else {
+			return (
+				<Span><input type='text' value={props.inputValue} onChange={props.handleInputValue}/>
+				</Span>
+			);
+		}
 	case 'date':
 		if (units == 'days') {
 			return (
@@ -39,9 +67,33 @@ const InputTypes = (props) => {
 			);
 		}
 	case 'number':
-		return (
-			<Span><input type='number' value={props.inputValue} onChange={props.handleInputValue} step={isKilometers(units)}/></Span>
-		);
+		if (units == 'km') {
+			kmDataList(300000,0);
+			return (
+				<Span>
+					<input type='text' value={props.inputValue} onChange={props.handleInputValue} list='km'/>	
+					<datalist id='km'>
+						<select>
+							{kmArr.map((km,i) => <option key={i} 
+								value={km}>{km}</option>)}
+						</select>
+					</datalist>
+				</Span>
+			);
+		} else {
+			dayDataList(365,0);
+			return (
+				<Span>
+					<input type='text' value={props.inputValue} onChange={props.handleInputValue} list='day'/>	
+					<datalist id='day'>
+						<select>
+							{dayArr.map((day,i) => <option key={i} 
+								value={day}>{day}</option>)}
+						</select>
+					</datalist>
+				</Span>
+			);
+		}
 	case 'boolean':
 		return null;
 	default:

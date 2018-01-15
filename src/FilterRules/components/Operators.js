@@ -17,7 +17,7 @@ const Operators = (props) => {
 	case 'Rental Left':
 		return (
 			<Span>
-				<select name="condition" value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
+				<select value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
 					{NumberType.map((item,i) => <option key={i} value={item.filter}>{item.filter}</option>)}
 				</select>
 			</Span>
@@ -25,7 +25,7 @@ const Operators = (props) => {
 	case 'Turn Back Milage':
 		return (
 			<Span>
-				<select name="condition" value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
+				<select value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
 					{NumberType.map((item,i) => <option key={i} value={item.filter}>{item.filter}</option>)}
 				</select>
 			</Span>
@@ -33,7 +33,7 @@ const Operators = (props) => {
 	case 'Agreement':
 		return (
 			<Span>
-				<select ame="condition"  value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
+				<select value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
 					{DateType.map((item,i) => <option key={i} value={item.filter}>{item.filter}</option>)}
 				</select>
 			</Span>
@@ -41,7 +41,7 @@ const Operators = (props) => {
 	case 'Model':
 		return (
 			<Span>
-				<select ame="condition"  value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
+				<select value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
 					{StringType.map((item,i) => <option key={i} value={item.filter}>{item.filter}</option>)}
 				</select>
 			</Span>
@@ -49,7 +49,7 @@ const Operators = (props) => {
 	case 'Vehicle Maintenance Needed':
 		return (
 			<Span>
-				<select ame="condition"  value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
+				<select value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
 					{BooleanType.map((item,i) => <option key={i} value={item.filter}>{item.filter}</option>)}
 				</select>
 			</Span>

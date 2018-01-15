@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 const Div = styled.div`
 background-color: rgb(123, 187, 237);
-width: 30%;
+width: 50%;
 `;
 
 
@@ -19,7 +19,6 @@ const FilterString = (props) => {
 			${condition} 
 			${inputValue}
 			${units}`}
-
 		</Div>
 	);
 };
