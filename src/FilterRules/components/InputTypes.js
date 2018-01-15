@@ -2,11 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { Models } from './Models.js';
 
-const Span = styled.span`
-	margin: 0px 15px;
-	display: inline-block;
-	outline: none;
-`;
+import { Span } from './css/Styles';
 
 const InputTypes = (props) => {
 	let value 		= props.value;
@@ -32,6 +28,30 @@ const InputTypes = (props) => {
 		return dayArr;
 	};
 
+	const renderArr = (arr) => {
+		return (
+			arr.map((item,i) => <option key={i} 
+				value={item}>{item}</option>)
+		);
+	};
+
+	const renderInputType = (type, arr) => {
+		if (arr == undefined) {
+			return (
+				<Span>
+					<input type={type} value={props.inputValue} onChange={props.handleInputValue}/>
+				</Span>
+			);
+		}
+		return (
+			<Span>
+				<select type={type} value={props.inputValue} onChange={props.handleInputValue}>
+					{renderArr(arr)}
+				</select>
+			</Span>
+		);
+	};
+
 	if (condition =='' || condition == 'is unknown' || condition == 'has any value') {
 		return null;
 	}
@@ -39,60 +59,24 @@ const InputTypes = (props) => {
 	switch(data) {
 	case 'string':
 		if (value == 'Model') {
-			return (
-				<Span>
-					<input type='text' value={props.inputValue} onChange={props.handleInputValue} list='Models'/>	
-					<datalist id='Models'>
-						<select>
-							{Models.map((model,i) => <option key={i} 
-								value={model}>{model}</option>)}
-						</select>
-					</datalist>
-				</Span>
-			);
+			return  renderInputType('text', Models);
 		} else {
-			return (
-				<Span><input type='text' value={props.inputValue} onChange={props.handleInputValue}/>
-				</Span>
-			);
+			return renderInputType('text');
 		}
 	case 'date':
 		if (units == 'days') {
-			return (
-				<Span><input type='number'value={props.inputValue} onChange={props.handleInputValue}/></Span>
-			);
+			dayDataList(31,0);
+			return renderInputType('text', dayArr);
 		} else {
-			return (
-				<Span><input type='date'value={props.inputValue} onChange={props.handleInputValue}/></Span>
-			);
+			return renderInputType('date');
 		}
 	case 'number':
 		if (units == 'km') {
-			kmDataList(300000,0);
-			return (
-				<Span>
-					<input type='text' value={props.inputValue} onChange={props.handleInputValue} list='km'/>	
-					<datalist id='km'>
-						<select>
-							{kmArr.map((km,i) => <option key={i} 
-								value={km}>{km}</option>)}
-						</select>
-					</datalist>
-				</Span>
-			);
+			kmDataList(50000,0);
+			return renderInputType('number', kmArr);
 		} else {
-			dayDataList(365,0);
-			return (
-				<Span>
-					<input type='text' value={props.inputValue} onChange={props.handleInputValue} list='day'/>	
-					<datalist id='day'>
-						<select>
-							{dayArr.map((day,i) => <option key={i} 
-								value={day}>{day}</option>)}
-						</select>
-					</datalist>
-				</Span>
-			);
+			dayDataList(31,0);
+			return renderInputType('text', dayArr);
 		}
 	case 'boolean':
 		return null;

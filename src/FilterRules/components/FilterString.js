@@ -1,24 +1,23 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { Div , Button, Li } from './css/Styles';
 
-const Div = styled.div`
-background-color: rgb(123, 187, 237);
-width: 50%;
-`;
 
 
 const FilterString = (props) => {
-	let units     = props.selectedUnits;
-	let value 		= props.value;
-	let condition = props.condition;
-	let data 			= props.dataType;
-	let inputValue = props.inputValue;
+	let filterArr = props.filter;
+
+	const renderFilter = () => {
+		return filterArr.map((item, i) => <Li key={i}>
+			{item.value} {item.condition} <strong>{item.inputValue} {item.selectedUnits}</strong>
+			<Button onClick={(e) => props.deleteFilter(e,i)}>X</Button></Li>);
+	};
+
 	return (
-		<Div>{
-			`${value} 
-			${condition} 
-			${inputValue}
-			${units}`}
+		<Div>
+			<ul>
+				{renderFilter()}
+			</ul>
 		</Div>
 	);
 };
