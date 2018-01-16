@@ -44,9 +44,8 @@ const InputTypes = (props) => {
 	case 'date':
 		if (units == 'days') {
 			return renderInputType(filteredInputs);
-		} else { return (
-			<DatePicker type='date' value={props.inputValue} onChange={props.handleInputValue}/>
-		);
+		} else { 
+			return <DatePicker type='date' value={props.inputValue} onChange={props.handleInputValue}/>;
 		}
 	case 'number':
 		return renderInputType(filteredInputs);

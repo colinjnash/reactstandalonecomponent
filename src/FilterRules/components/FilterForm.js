@@ -80,7 +80,7 @@ handleCondition = (event) => {
 		if (condition == 'is unknown' || condition == 'has any value' 
 			|| condition == 'is true' || condition == 'is false') {
 			this.setState({selectedUnits: ''}, () => this.submitFilter());
-		} 	else if (this.state.value == 'Agreement') {
+		} else if (this.state.value == 'Agreement') {
 			if (this.state.condition == 'after' || this.state.condition  ==  'on' || this.state.condition == 'before') {
 				this.setState({selectedUnits: ''});
 			} 
@@ -158,6 +158,10 @@ renderAttribute = (arr) => {
 	);
 }
 
+// ================================================
+//Search Filters
+//=================================================
+
 searchAttributes = (event) => {
 	let List = this.state.attArray;
 	let updatedList = List.filter((item) => {
@@ -174,6 +178,8 @@ searchInputs = (event) => {
 	});
 	this.setState({filteredInputs: updatedList});
 }
+
+
 
 render() {
 	return (

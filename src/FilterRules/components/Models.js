@@ -1,0 +1,10 @@
+export const Models = [
+	'1-SERIES',
+	'6 SERIES', 
+	'640IX N55',
+	'ALL 4 COUTRYMAN ZC53',
+	'CAMION X1, SANTA FE SPORT',
+	'530XI N52', 
+	'328DX N47T', 
+	'3 SERIES'
+];
