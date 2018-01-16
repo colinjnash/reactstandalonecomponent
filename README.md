@@ -88,51 +88,6 @@ Here are the possible vehicle models:
 530XI N52, 328DX N47T, 3 SERIES`
 
 
-Base Build:
 
-Currently running webpack with Stage1, ES2015, and React with Babel-Loader as the transpiler.
 
-ESLINT rules are set to customized rules, although a switch to the AirBnb linter could be possible.
-
-.gitignore needs to be tested to ensure all bloat is left out.
-
-The goal will be to populate the initial data in state, then pass it on to dropdown menus with a callback saving the requested filters. There will then be a final check before populating the Filter List as seen in the design parameter.
-
-Currently stuck on a bug that will not re-render the list and select default option for the form. It is definitely a problem with the rendering and/or key values, and the setup of state.
-
-Clean up of handle functions also need to be addressed, as they can possibly be refactored into one event handler.
-
-UPDATE
-01/12/18
-
-Not much time to work on it today, but the main goals were:
-
-1. To have a dynamic InputValue Field
-2. To TypeOf all InputValue fields according to the chart
-3. Having the correct inputs for 'Agreement field'
-4. Cleaning up callbacks
-
-So far, the callbacks can definitely be refactored, and some code review based on the switch statements are needed. I'm sure there is a more elegant way to render them (possibly enums with [state]), but found this to be the most direct and to gain traction.
-
-FilterString now updates according to the filters added, however no RemoveHandler has been instantiated, and Testing must be done for each attribute and condition.
-
-As for server callbacks, no data has yet been formed for the calls. Hoping to start that tomorrow. They will most likely be sent to state and then put together. I need to check if there will be an OnSUBMIT call, or whether there should be a callback to check if all fields are filled and populate the search accordingly.
-
-ISSUES
-
-1. Resetting the form is still giving me problems. Changing the ValueHandler does not reset the actual dropdown for the Operator or the InputValue. This should become a priority as the UX is currently terrible.
-2. Minimal styled components at the moment, but this is mostly to see the functionality in place. Styling can always be applied after, however I'm not sure of Beem Practices in what you prefer.
-3. No server side data has been populated. Not sure if this is an issue, but I could see it being a problem if there are other teams waiting on me for testing.
-
-QUESTIONS TO BE ASKED
-
-1. Are the InputTypes currently correct? What are the steps and parameters for them?
-2. The Operator comparision for the Condition needs to be populated for backend processing. I will need clarification on what each operator does.
-3. Mock Data or backend setup. Will the backend also be node? Will it be served in JSON format?
-
-So far that's all for now. I am showing my inexperience here with the possible design, and any code feedback would be much appreciated.
-
-Cheers,
-
-Colin
 

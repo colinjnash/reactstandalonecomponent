@@ -11,10 +11,10 @@ const FilterString = (props) => {
 	const renderFilter = () => {
 		return filterArr.map((item, i) => <Li key={i}>
 			<ListSpan>
-			{item.value} {item.condition} <strong>{item.inputValue} {item.selectedUnits}</strong>
-			<Button onClick={(e) => props.deleteFilter(e,i)}>&#10006;</Button>
+				{item.value} {item.condition} <strong>{item.inputValue} {item.selectedUnits}</strong>
+				<Button onClick={(e) => props.deleteFilter(e,i)}>&#10006;</Button>
 			</ListSpan>
-			</Li>);
+		</Li>);
 	};
 
 	return (

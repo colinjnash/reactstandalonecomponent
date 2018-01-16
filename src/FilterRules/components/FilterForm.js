@@ -5,11 +5,13 @@ import FilterString from './FilterString';
 
 import styled, { css } from 'styled-components';
 import { Img, Form, Title, 
-	SelectSpan, ContainerWrapper, Chevron,
+	AttSelectSpan, ContainerWrapper, Chevron,
 	FormWrapper, Dropdown, DropContainer, 
-	DropdownList } from './css/Styles';
-import { attributeList } from './Attributes';
+	DropdownList, SearchInput } from './css/Styles';
 
+import { attributeList } from './Attributes';
+import { dayArr, kmArr } from './InputArrays';
+import { Models } from './Models.js';
 
 class FilterForm extends Component {
 	constructor(props) {
@@ -20,10 +22,14 @@ class FilterForm extends Component {
 			inputTypeList: false,
 			value: '',
 			selectedDataType: '',
-			selectedUnits: '',
+			selectedUnits: 'days',
 			condition: '',
 			inputValue: '',
-			filter: []
+			filter: [],
+			attArray: attributeList,
+			filteredAtts: attributeList,
+			inputArray: dayArr,
+			filteredInputs: dayArr
 		};
 	}
 
@@ -32,7 +38,6 @@ filterType = (value) => {
 		if (obj.filter == value) {
 			this.setState({
 				selectedDataType: obj.dataType,
-				selectedUnits: obj.units,
 				attList: !this.state.attList
 			});
 		}
@@ -45,10 +50,28 @@ filterType = (value) => {
 
 handleValue = (event) => {
 	let value = event.currentTarget.title;
-	this.setState({value: value,
-		condition: '', 
-		selectedDataType: '',
-		inputValue: ''}, () => this.filterType(value));
+	if (value == 'Turn Back Milage') {
+		this.setState({value: value,
+			condition: '', 
+			selectedDataType: '',
+			selectedUnits: 'km',
+			inputArray: kmArr,
+			filteredInputs: kmArr,
+			inputValue: ''}, () => this.filterType(value));
+	} else if (value == 'Model') {
+		this.setState({value: value,
+			condition: '', 
+			selectedDataType: '',
+			selectedUnits: '',
+			inputArray: Models,
+			filteredInputs: Models,
+			inputValue: ''}, () => this.filterType(value));
+	}	else	{
+		this.setState({value: value,
+			condition: '', 
+			selectedDataType: '',
+			inputValue: ''}, () => this.filterType(value));
+	}
 }
 
 handleCondition = (event) => {
@@ -58,11 +81,9 @@ handleCondition = (event) => {
 			|| condition == 'is true' || condition == 'is false') {
 			this.setState({selectedUnits: ''}, () => this.submitFilter());
 		} 	else if (this.state.value == 'Agreement') {
-			if (this.state.condition == 'more than' || this.state.condition  ==  'less than' || this.state.condition == 'exactly') {
-				this.setState({selectedUnits: 'days'});
-			} else {
+			if (this.state.condition == 'after' || this.state.condition  ==  'on' || this.state.condition == 'before') {
 				this.setState({selectedUnits: ''});
-			}
+			} 
 		}
 	};
 	this.setState({condition:condition, conditionList:!this.state.conditionList },() => conditionCheck());
@@ -95,9 +116,11 @@ clearForm = () => {
 	this.setState({
 		value: '',
 		selectedDataType: '',
-		selectedUnits: '',
+		selectedUnits: 'days',
 		condition: '',
 		inputValue: '',
+		inputArray: dayArr,
+		filteredInputs: dayArr,
 		attList: false,
 		conditionList: false,
 		InputTypeList: false
@@ -113,26 +136,43 @@ deleteFilter = (event, index) => {
 // ================================================
 //Toggle Operators
 //=================================================
+
 toggleAtt = (e) => {
 	e.preventDefault();
-	console.log('clicked');
 	this.setState({attList: true});
 }
 toggleCondition = (e) => {
 	e.preventDefault();
-	console.log('condition clicked');
 	this.setState({conditionList: true});
 }
 
 toggleInput = (e) => {
 	e.preventDefault();
-	console.log('input clicked');
 	this.setState({inputTypeList: true});
 }
 
-renderAttribute = () => {
-	return attributeList.map((att,i) => <DropdownList key={i} 
-		onClick={this.handleValue} title={att.filter}>{att.filter}</DropdownList>)
+renderAttribute = (arr) => {
+	return (
+		arr.map((att,i) => <DropdownList key={i} 
+			onClick={this.handleValue} title={att.filter}>{att.filter}</DropdownList>)
+	);
+}
+
+searchAttributes = (event) => {
+	let List = this.state.attArray;
+	let updatedList = List.filter((item) => {
+		return item.filter.toLowerCase().search(
+			event.target.value.toLowerCase()) !== -1;
+	});
+	this.setState({filteredAtts: updatedList});
+}
+searchInputs = (event) => {
+	let List = this.state.inputArray;
+	let updatedList = List.filter((item) => {
+		return item.toString().toLowerCase().search(
+			event.target.value.toLowerCase()) !== -1;
+	});
+	this.setState({filteredInputs: updatedList});
 }
 
 render() {
@@ -148,12 +188,17 @@ render() {
 			/>
 			<Form>
 				<DropContainer>
-					<SelectSpan onClick={this.toggleAtt}>{this.state.value == '' ? 'Select Attribute' : this.state.value}</SelectSpan>
+					<AttSelectSpan 
+						onClick={this.toggleAtt}
+						value={this.state.value}
+					>
+						{this.state.value == '' ? 'Select Attribute' : this.state.value}</AttSelectSpan>
 					<Chevron onClick={this.toggleAtt}>&#8964;</Chevron>
 					<Dropdown
 						attList={this.state.attList}
 					>					
-						{this.renderAttribute()}
+						<DropdownList><SearchInput placeholder="&#8981;" type='text' onChange={this.searchAttributes}/></DropdownList>
+						{this.renderAttribute(this.state.filteredAtts)}
 					</Dropdown>
 				</DropContainer>
 				<Operators 
@@ -165,7 +210,7 @@ render() {
 
 				/>
 				<InputTypes
-					value={this.state.value}
+					filteredInputs={this.state.filteredInputs}
 					dataType={this.state.selectedDataType}
 					inputValue={this.state.inputValue}
 					condition={this.state.condition}
@@ -173,6 +218,7 @@ render() {
 					selectedUnits ={this.state.selectedUnits}
 					toggleInput={this.toggleInput}
 					inputTypeList={this.state.inputTypeList}
+					searchInputs={this.searchInputs}
 				/>
 			</Form>
 		</ContainerWrapper>

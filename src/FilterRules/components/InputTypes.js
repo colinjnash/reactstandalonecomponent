@@ -1,33 +1,14 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { Models } from './Models.js';
 
 import { DropContainer, InputDropdown, Chevron,
-	SelectSpan, DropdownList } from './css/Styles';
+	InputSelectSpan, DropdownList, DatePicker, SearchInput } from './css/Styles';
 
 const InputTypes = (props) => {
-	let value 		= props.value;
 	let data 			= props.dataType;
 	let units 		= props.selectedUnits;
 	let condition	=	props.condition;
-	let kmArr 		= [];
-	let dayArr		= [];
-
-	const kmDataList = (num,km) => {
-		if (km < num) {
-			kmArr.push(km);
-			kmDataList(num, km+=5000);
-		} 
-		return kmArr;
-	};
-
-	const dayDataList =(num,day) => {
-		if (day < num) {
-			dayArr.push(day);
-			dayDataList(num, day+=1);
-		} 
-		return dayArr;
-	};
+	let filteredInputs = props.filteredInputs;
 
 	const renderArr = (arr) => {
 		return (
@@ -39,42 +20,36 @@ const InputTypes = (props) => {
 	const renderInputType = (arr) => {
 		return (
 			<DropContainer>
-				<SelectSpan onClick={props.toggleInput}>{props.inputValue == '' ? 'Select a type or value' : props.inputValue}
-				</SelectSpan>
+				<InputSelectSpan
+					inputValue={props.inputValue}
+					onClick={props.toggleInput}>{props.inputValue == '' ? 'Select a type or value' : props.inputValue}
+				</InputSelectSpan>
 				<Chevron onClick={props.toggleInput}>&#8964;</Chevron>
-
 				<InputDropdown
 					inputTypeList ={props.inputTypeList}
 				>
+					<DropdownList><SearchInput placeholder="&#8981;" type='text' onChange={props.searchInputs}/></DropdownList>
 					{renderArr(arr)}
 				</InputDropdown>
 			</DropContainer>
 		);
 	};
-
-	if (condition =='' || condition == 'is unknown' || condition == 'has any value') {
+	if (condition =='') {
 		return null;
 	}
-
+	
 	switch(data) {
 	case 'string':
-		return  renderInputType(Models);
+		return  renderInputType(filteredInputs);
 	case 'date':
 		if (units == 'days') {
-			dayDataList(31,0);
-			return renderInputType(dayArr);
+			return renderInputType(filteredInputs);
 		} else { return (
-			<input type='date' value={props.inputValue} onChange={props.handleInputValue}/>
+			<DatePicker type='date' value={props.inputValue} onChange={props.handleInputValue}/>
 		);
 		}
 	case 'number':
-		if (units == 'km') {
-			kmDataList(50000,0);
-			return renderInputType(kmArr);
-		} else {
-			dayDataList(31,0);
-			return renderInputType(dayArr);
-		}
+		return renderInputType(filteredInputs);
 	case 'boolean':
 		return null;
 	default:

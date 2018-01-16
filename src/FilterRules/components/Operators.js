@@ -2,7 +2,7 @@ import React from 'react';
 import { StringType, DateType, NumberType, BooleanType } from './OperatorTypes';
 import styled, { css } from 'styled-components';
 
-import { Form, SelectSpan, Chevron, 
+import { Form, OpSelectSpan, Chevron, 
 	DropContainer, OperatorDropdown, DropdownList } from './css/Styles';
 
 
@@ -13,7 +13,9 @@ const Operators = (props) => {
 	const renderOperator = (arr) => {
 		return (
 			<DropContainer>
-				<SelectSpan onClick={props.toggleCondition}>{condition == '' ? 'Select a Condition' : condition}</SelectSpan>
+				<OpSelectSpan 
+					condition ={props.condition}
+					onClick={props.toggleCondition}>{condition == '' ? 'Select a Condition' : condition}</OpSelectSpan>
 				<Chevron onClick={props.toggleCondition}>&#8964;</Chevron>
 				<OperatorDropdown
 					conditionList={props.conditionList}
