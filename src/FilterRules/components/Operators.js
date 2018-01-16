@@ -2,19 +2,26 @@ import React from 'react';
 import { StringType, DateType, NumberType, BooleanType } from './OperatorTypes';
 import styled, { css } from 'styled-components';
 
-import { Form, Span } from './css/Styles';
+import { Form, SelectSpan, Chevron, 
+	DropContainer, OperatorDropdown, DropdownList } from './css/Styles';
 
 
 const Operators = (props) => {
 	let value = props.value;
+	let condition = props.condition;
 
 	const renderOperator = (arr) => {
 		return (
-			<Span>
-				<select value={props.condition == '' ? 'Select Condition' : props.condition} onChange={props.handleCondition}>
-					{arr.map((item,i) => <option key={i} value={item.filter}>{item.filter}</option>)}
-				</select>
-			</Span>
+			<DropContainer>
+				<SelectSpan onClick={props.toggleCondition}>{condition == '' ? 'Select a Condition' : condition}</SelectSpan>
+				<Chevron onClick={props.toggleCondition}>&#8964;</Chevron>
+				<OperatorDropdown
+					conditionList={props.conditionList}
+				>
+					{arr.map((item,i) => <DropdownList key={i} onClick={props.handleCondition} title={item.filter}>{item.filter}</DropdownList>)}
+				</OperatorDropdown>
+			</DropContainer>
+	
 		);
 	};
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { Div , Button, Li } from './css/Styles';
+import { Div , ListSpan,
+ Button, Li, FilterWrapper, FilterList, ContainerWrapper } from './css/Styles';
 
 
 
@@ -9,16 +10,19 @@ const FilterString = (props) => {
 
 	const renderFilter = () => {
 		return filterArr.map((item, i) => <Li key={i}>
+			<ListSpan>
 			{item.value} {item.condition} <strong>{item.inputValue} {item.selectedUnits}</strong>
-			<Button onClick={(e) => props.deleteFilter(e,i)}>X</Button></Li>);
+			<Button onClick={(e) => props.deleteFilter(e,i)}>&#10006;</Button>
+			</ListSpan>
+			</Li>);
 	};
 
 	return (
-		<Div>
-			<ul>
+		<FilterWrapper>
+			<FilterList>
 				{renderFilter()}
-			</ul>
-		</Div>
+			</FilterList>
+		</FilterWrapper>
 	);
 };
 

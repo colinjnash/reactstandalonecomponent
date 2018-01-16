@@ -4,7 +4,10 @@ import InputTypes from './InputTypes';
 import FilterString from './FilterString';
 
 import styled, { css } from 'styled-components';
-import { Form, Span } from './css/Styles';
+import { Img, Form, Title, 
+	SelectSpan, ContainerWrapper, Chevron,
+	FormWrapper, Dropdown, DropContainer, 
+	DropdownList } from './css/Styles';
 import { attributeList } from './Attributes';
 
 
@@ -12,6 +15,9 @@ class FilterForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			attList: false,
+			conditionList: false,
+			inputTypeList: false,
 			value: '',
 			selectedDataType: '',
 			selectedUnits: '',
@@ -27,6 +33,7 @@ filterType = (value) => {
 			this.setState({
 				selectedDataType: obj.dataType,
 				selectedUnits: obj.units,
+				attList: !this.state.attList
 			});
 		}
 	});
@@ -36,8 +43,8 @@ filterType = (value) => {
 //=================================================
 
 
-handleValue = () => {
-	let value = this.refs.attribute.value;
+handleValue = (event) => {
+	let value = event.currentTarget.title;
 	this.setState({value: value,
 		condition: '', 
 		selectedDataType: '',
@@ -45,7 +52,7 @@ handleValue = () => {
 }
 
 handleCondition = (event) => {
-	let condition = event.target.value;
+	let condition = event.currentTarget.title;
 	const conditionCheck = () => {
 		if (condition == 'is unknown' || condition == 'has any value' 
 			|| condition == 'is true' || condition == 'is false') {
@@ -58,12 +65,12 @@ handleCondition = (event) => {
 			}
 		}
 	};
-	this.setState({condition},() => conditionCheck());
+	this.setState({condition:condition, conditionList:!this.state.conditionList },() => conditionCheck());
 }
 
 handleInputValue = (event) => {
-	let value = event.target.value;
-	this.setState({inputValue: value}, () => this.submitFilter());
+	let value = event.target.value || event.currentTarget.title;
+	this.setState({inputValue: value, inputTypeList: !this.state.inputTypeList}, () => this.submitFilter());
 }
 
 // ================================================
@@ -91,6 +98,9 @@ clearForm = () => {
 		selectedUnits: '',
 		condition: '',
 		inputValue: '',
+		attList: false,
+		conditionList: false,
+		InputTypeList: false
 	});
 }
 
@@ -100,53 +110,74 @@ deleteFilter = (event, index) => {
 	});
 
 }
+// ================================================
+//Toggle Operators
+//=================================================
+toggleAtt = (e) => {
+	e.preventDefault();
+	console.log('clicked');
+	this.setState({attList: true});
+}
+toggleCondition = (e) => {
+	e.preventDefault();
+	console.log('condition clicked');
+	this.setState({conditionList: true});
+}
 
-	//Line 83: Need a more elegant solution for Default Attribute.
-	//Line 94: Once Again for Testing Purposes Only to make sure the data is populated in the parent state
+toggleInput = (e) => {
+	e.preventDefault();
+	console.log('input clicked');
+	this.setState({inputTypeList: true});
+}
+
+renderAttribute = () => {
+	return attributeList.map((att,i) => <DropdownList key={i} 
+		onClick={this.handleValue} title={att.filter}>{att.filter}</DropdownList>)
+}
+
 render() {
 	return (
-		<div>
+		<ContainerWrapper>
+			<Title>
+				<Img src={require('./img/3_circle1.png')} alt="Number 3 with circle"/>
+				ADD ATTRIBUTES
+			</Title>
 			<FilterString
 				filter={this.state.filter}
 				deleteFilter={this.deleteFilter}
 			/>
-			<span>
-				<Form>
-					<select ref='attribute' value={this.state.value == '' ? 'Select Attribute' : this.state.value} onChange={this.handleValue}>	
-						<option value="Select Attribute" disabled>Select Attribute</option>
-						{attributeList.map((att,i) => <option key={i} 
-							value={att.filter}>{att.filter}</option>)}
-					</select>
-					<Operators 
-						value={this.state.value}
-						dataType={this.state.selectedDataType}
-						condition={this.state.condition}
-						selectedUnits ={this.state.selectedUnits}
-						handleCondition={this.handleCondition}
-					/>
-					<InputTypes
-						value={this.state.value}
-						dataType={this.state.selectedDataType}
-						inputValue={this.state.inputValue}
-						condition={this.state.condition}
-						handleInputValue={this.handleInputValue}
-						selectedUnits ={this.state.selectedUnits}
-					/>
-				</Form>
-			</span>
-		</div>
+			<Form>
+				<DropContainer>
+					<SelectSpan onClick={this.toggleAtt}>{this.state.value == '' ? 'Select Attribute' : this.state.value}</SelectSpan>
+					<Chevron onClick={this.toggleAtt}>&#8964;</Chevron>
+					<Dropdown
+						attList={this.state.attList}
+					>					
+						{this.renderAttribute()}
+					</Dropdown>
+				</DropContainer>
+				<Operators 
+					value={this.state.value}
+					condition={this.state.condition}
+					conditionList={this.state.conditionList}
+					handleCondition={this.handleCondition}
+					toggleCondition={this.toggleCondition}
+
+				/>
+				<InputTypes
+					value={this.state.value}
+					dataType={this.state.selectedDataType}
+					inputValue={this.state.inputValue}
+					condition={this.state.condition}
+					handleInputValue={this.handleInputValue}
+					selectedUnits ={this.state.selectedUnits}
+					toggleInput={this.toggleInput}
+					inputTypeList={this.state.inputTypeList}
+				/>
+			</Form>
+		</ContainerWrapper>
 	);
 }	
 }
 
 export default FilterForm;
-
-// Only for Reference Purposes
-
-// | Attribute                  | Data Type |  Units     |
-// |----------------------------|-----------|------------|
-// | Rental Left                | number    | days       |
-// | Turn Back Milage           | number    | kilometers |
-// | Agreement                  | date      |            |
-// | Model                      | string    |            |
-// | Vehicle Maintenance Needed | boolean   |            ||

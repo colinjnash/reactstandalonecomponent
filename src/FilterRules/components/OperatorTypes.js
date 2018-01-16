@@ -1,7 +1,5 @@
 
 export const StringType = [
-	{filter: 'Select Condition',
-	},
 	{filter: 'is',
 	},
 	{filter: 'is not',
@@ -21,8 +19,6 @@ export const StringType = [
 ];
 
 export const DateType = [
-	{filter: 'Select Condition',
-	},
 	{filter: 'more than',
 	},
 	{filter: 'exactly',
@@ -42,8 +38,6 @@ export const DateType = [
 ];
 
 export const NumberType = [
-	{filter: 'Select Condition',
-	},
 	{filter: 'greater than',
 	},
 	{filter: 'less than',
@@ -59,8 +53,6 @@ export const NumberType = [
 ];
 
 export const BooleanType = [
-	{filter: 'Select Condition',
-	},
 	{filter: 'is true',
 		operator: true
 	},
