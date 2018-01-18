@@ -109,7 +109,13 @@ I still decided to keep my project in a form, and I'm weak on procedure for savi
 
 As for serving to the backend, I'm currently researching ideas about this.
 
-Styling is showing a big weakness, as my CSS could also be refactored. I'm still stuck in the CSS I learned over a decade ago. Further adjustments should be to make it responsive and layout friendly to IPAD and mobile screens with the `@media` query. Currently if the display size is less than `960px` in length there is trouble with the input dropdown bars. I can definitely add more functionality here.
+Styling is showing a big weakness, as my CSS could also be refactored. I'm still stuck in the CSS I learned over a decade ago. Further adjustments should be to make it responsive and layout friendly to IPAD and mobile screens with the `@media` query. 
+
+###UPDATES
+
+SVG assets loaded. Media queries are now fixed for screens less than `980 px`. The form dropdowns will now display as block elements to keep styling intact.
+Can't figure out how to remove assets from date picker. Tried the `::after` element on the `date-picker-indicator`, but was only able to remove the arrow and not replace with `icomoon` icons.
+Will research more into this.
 
 
 

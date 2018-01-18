@@ -1,5 +1,5 @@
 import React from 'react';
-import { StringType, DateType, NumberType, BooleanType } from './OperatorTypes';
+import { StringType, DateType, NumberType, BooleanType } from './Static/OperatorTypes';
 import styled, { css } from 'styled-components';
 
 import { Form, OpSelectSpan, Chevron, 
@@ -16,7 +16,7 @@ const Operators = (props) => {
 				<OpSelectSpan 
 					condition ={props.condition}
 					onClick={props.toggleCondition}>{condition == '' ? 'Select a Condition' : condition}</OpSelectSpan>
-				<Chevron onClick={props.toggleCondition}>&#8964;</Chevron>
+				<Chevron onClick={props.toggleCondition}></Chevron>
 				<OperatorDropdown
 					conditionList={props.conditionList}
 				>

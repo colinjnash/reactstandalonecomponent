@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FilterForm from './FilterRules/components/FilterForm';
+import FilterForm from './components/FilterForm';
 
 
 

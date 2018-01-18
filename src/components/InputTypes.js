@@ -24,11 +24,11 @@ const InputTypes = (props) => {
 					inputValue={props.inputValue}
 					onClick={props.toggleInput}>{props.inputValue == '' ? 'Select a type or value' : props.inputValue}
 				</InputSelectSpan>
-				<Chevron onClick={props.toggleInput}>&#8964;</Chevron>
+				<Chevron onClick={props.toggleInput}></Chevron>
 				<InputDropdown
 					inputTypeList ={props.inputTypeList}
 				>
-					<DropdownList><SearchInput placeholder="&#8981;" type='text' onChange={props.searchInputs}/></DropdownList>
+					<DropdownList><SearchInput placeholder="&#xe912;" type='text' onChange={props.searchInputs}/></DropdownList>
 					{renderArr(arr)}
 				</InputDropdown>
 			</DropContainer>

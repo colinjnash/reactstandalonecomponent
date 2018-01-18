@@ -7,11 +7,11 @@ import styled, { css } from 'styled-components';
 import { Img, Form, Title, 
 	AttSelectSpan, ContainerWrapper, Chevron,
 	FormWrapper, Dropdown, DropContainer, 
-	DropdownList, SearchInput } from './css/Styles';
+	DropdownList, SearchInput, SearchBar } from './css/Styles';
 
-import { attributeList } from './Attributes';
-import { dayArr, kmArr } from './InputArrays';
-import { Models } from './Models.js';
+import { attributeList } from './Static/Attributes';
+import { dayArr, kmArr } from './Static/InputArrays';
+import { Models } from './Static/Models.js';
 
 class FilterForm extends Component {
 	constructor(props) {
@@ -179,14 +179,12 @@ searchInputs = (event) => {
 	this.setState({filteredInputs: updatedList});
 }
 
-
-
 render() {
 	return (
 		<ContainerWrapper>
 			<Title>
 				<Img src={require('./img/3_circle1.png')} alt="Number 3 with circle"/>
-				ADD ATTRIBUTES
+				ADD ATTRIBUTES 
 			</Title>
 			<FilterString
 				filter={this.state.filter}
@@ -199,11 +197,11 @@ render() {
 						value={this.state.value}
 					>
 						{this.state.value == '' ? 'Select Attribute' : this.state.value}</AttSelectSpan>
-					<Chevron onClick={this.toggleAtt}>&#8964;</Chevron>
+					<Chevron onClick={this.toggleAtt}></Chevron>
 					<Dropdown
 						attList={this.state.attList}
 					>					
-						<DropdownList><SearchInput placeholder="&#8981;" type='text' onChange={this.searchAttributes}/></DropdownList>
+						<DropdownList><SearchInput placeholder="&#xe912;"type='text' onChange={this.searchAttributes}/></DropdownList>
 						{this.renderAttribute(this.state.filteredAtts)}
 					</Dropdown>
 				</DropContainer>

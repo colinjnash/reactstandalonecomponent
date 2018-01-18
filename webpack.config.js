@@ -14,7 +14,7 @@ module.exports = {
 				}
 			},
 			{
-				test: /\.(png|jp(e*)g|svg)$/,  
+				test: /\.(png|jp(e*)g|)$/,  
 				use: [{
 					loader: 'url-loader',
 					options: { 
@@ -22,6 +22,14 @@ module.exports = {
 						name: 'images/[hash]-[name].[ext]'
 					} 
 				}]
+			},
+			{
+				test: /\.(eot|svg|ttf|woff|woff2)$/,
+				loader: 'url-loader?limit=100000'
+			},
+			{
+				test: /\.css$/,
+				loader: 'style-loader!css-loader'
 			}
 		],
 	},
