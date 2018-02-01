@@ -1,4 +1,4 @@
-###REACT STANDALONE COMPONENT EXAMPLE
+##REACT STANDALONE COMPONENT EXAMPLE
 
 
 To install, simply clone the repo from above, then run `npm install` to install all dependencies.
@@ -6,7 +6,7 @@ To install, simply clone the repo from above, then run `npm install` to install 
 to run, use the command `npm start`, to initiate the webpack dev server.
 
 
-###PERSONAL NOTES
+##PERSONAL NOTES
 
 My React was a little rusty, but this was a great project to work on.
 
@@ -22,7 +22,7 @@ As for serving to the backend, I'm currently researching ideas about this.
 
 Styling is showing a big weakness, as my CSS could also be refactored. I'm still stuck in the CSS I learned over a decade ago. Further adjustments should be to make it responsive and layout friendly to IPAD and mobile screens with the `@media` query. 
 
-###UPDATES
+##UPDATES
 
 SVG assets loaded. Media queries are now fixed for screens less than `980 px`. The form dropdowns will now display as block elements to keep styling intact.
 Can't figure out how to remove assets from date picker. Tried the `::after` element on the `date-picker-indicator`, but was only able to remove the arrow and not replace with `icomoon` icons.
